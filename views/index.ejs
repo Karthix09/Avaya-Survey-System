@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Survey Results</title>
+</head>
+<body>
+    <div class="container-1">
+        <div>
+            <button type="button" class="btn btn-danger" onclick="fileUpload()">Upload Excel File</button>
+            <script>
+                function fileUpload() {
+                    window.location.href = "/file-upload";
+                }
+            </script>
+            <h6 style="font-weight:bolder;">(Update data)</h6>
+        </div>
+        <div>
+            <button type="button" class="btn btn-danger" onclick="nextPage()">View Current Data</button>
+            <script>
+                function nextPage(){
+                    window.location.href = "/all-results";
+                }
+            </script>
+        </div>
+    </div>
+
+</body>
+</html>

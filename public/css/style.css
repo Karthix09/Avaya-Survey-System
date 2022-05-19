@@ -1,0 +1,37 @@
+.container-1 {
+    border: 3px solid black;
+    padding: 50px;
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 300px;
+    justify-content: space-evenly;
+    margin-right: auto;
+    margin-left: auto;
+    vertical-align: middle;
+}
+
+.container-1 div{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+
+}
+
+
+.errorText {
+    color: red;
+}
+
+.tableRow:hover {
+    background-color: lightyellow;
+}
+
+
+.container-2 {
+    border: 3px;
+    padding: 10px;
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}

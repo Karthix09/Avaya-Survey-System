@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Survey Data</title>
+</head>
+<body>
+
+  <h2 style="text-align:center">Filter Options</h2>
+
+  <% if(data.length) { %>
+      <form action="/filtered-result" method="POST">
+
+        <div class="country" style="margin-top: 30px;">
+          <label style="font-size: x-large; font-weight: bold;">Country:</label>
+            <select style="width:15cm; background-color: beige;" class="form-control" id="inputCountry" placeholder="Country" name="country">
+                <option value="">All</option> 
+                <% let countryData = [...new Set(data.map(item => item.country).sort())]; %>
+                <% for (var element of countryData) { %>
+                  <option value="<%=element%>"><%=element%></option> 
+              <% } %>
+            </select>
+        </div>
+
+        
+
+        <div class="company" style="margin-top: 30px;">
+          <label style="font-size: x-large; font-weight: bold;">Company:</label>
+          <select style="width:15cm; background-color: beige;" class="form-control" id="inputCompany" placeholder="Company" name="company">
+            <option value="">All</option> 
+            <% let companyData = [...new Set(data.map(item => item.company).sort())]; %>
+            <% for (var element of companyData) { %>
+              <option value="<%=element%>"><%=element%></option> 
+          <% } %>
+          </select>
+        </div>
+        
+        <div class="quater-select" style="margin-top: 30px;">
+          <label for="inputState" style="font-size: x-large; font-weight: bold;">Quarter: <span id="text_display"></span></label>
+          <select style="width: 15cm; background-color: beige;" id="inputQuarter" class="form-control" onchange="changeText()" name="quarter">
+            <option value="All" id="quarter-all">All</option>
+            <option value="Quarter-1" id="quarter-1">Quarter-1</option>
+            <option value="Quarter-2" id="quarter-2">Quarter-2</option>
+            <option value="Quarter-3" id="quarter-3">Quarter-3</option>
+            <option value="Quarter-4" id="quarter-4">Quarter-4</option>
+          </select>
+
+          <script>
+            function changeText() {
+              var selected_material = document.getElementById("inputQuarter").value;
+              if (selected_material === "All"){
+                document.getElementById("text_display").innerText = "Jan - Dec";
+              }
+              else if (selected_material === "Quarter-1"){
+                document.getElementById("text_display").innerText = "Oct - Dec";
+              } 
+              else if (selected_material === "Quarter-2"){
+                document.getElementById("text_display").innerText = "Jan - Mar"; 
+              }
+              else if (selected_material === "Quarter-3"){
+                document.getElementById("text_display").innerText = "Apr - Jun"; 
+              }
+              else if (selected_material === "Quarter-4"){
+                document.getElementById("text_display").innerText = "Jul - Sep"; 
+              }
+            }
+          </script> 
+        </div>
+
+        <div style="text-align: center;">
+          <button style="margin-top: 30px;" type="submit" class="btn btn-danger">View Results</button>
+        </div>
+      </form>
+      <% } else { %>
+        <h1>No data<h1>
+  <% } %>
+    
+  <h2 style="text-align:center; margin-top: 50px;"> Ratings </h2>
+    <table style="position:relative; border-collapse: collapse;"class="table table-bordered border-primary">
+      <thead style="position: sticky; top: 0; box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.603); background-color: beige;">
+          <th scope="col">id</th>
+          <th scope="col">Completion Date</th>
+          <th scope="col">Country</th>
+          <th scope="col">Company</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Incident Management (Response)</th>
+          <th scope="col">Incident Management (Restore)</th>
+          <th scope="col">Network Availability Management</th>
+          <th scope="col">Change Request Management</th>
+          <th scope="col">Regular Report Timeliness and Quality</th>
+          <th scope="col">Service Desk</th>
+          <th scope="col">Field Service Engineers / Dedicated Engineers</th>
+          <th scope="col">Remote Support Technical Engineers</th>
+          <th scope="col">Avaya Professional Service Team (APS)</th>
+          <th scope="col">Service Desk2</th>
+          <th scope="col">Field Service Engineers / Dedicated Engineers2</th>
+          <th scope="col">Remote Support Technical Engineers2</th>
+          <th scope="col">Avaya Professional Service Team (APS)2</th>
+          <th scope="col">Through Leadership - Technology / Solution Review</th>
+          <th scope="col">Level of responsiveness</th>
+          <th scope="col">Sense of urgency</th>
+          <th scope="col">Ability to get things done</th>
+          <th scope="col">Work effectively with people</th>
+          <th scope="col">Understanding of technology and solutions</th>
+          <th scope="col">Knowledge and understanding of your business</th>
+          <th scope="col">Overall performance</th>
+          <th scope="col">Overall support and satisfaction of the Avaya team</th>
+          <th scope="col">Overall support and satisfaction of the Avaya Solutions</th>
+          <th scope="col">Overall support and satisfaction of Account Executive</th>
+          <th scope="col">Overall support and satisfaction of quote desk / proposal team</th>
+          <th scope="col">Overall support and satisfaction of Avaya Service Desk</th>
+          <th scope="col">Overall support and satisfaction of Avaya Field Engineers / Dedicated Engineers</th>
+          <th scope="col">Overall support and satisfaction of the remote support technical engineers</th>
+          <th scope="col">Overall support and satisfaction of the Avaya Professional Services Team (APS)</th>
+          <th scope="col">How likely are you to recommend our support?</th>
+      </thead>
+      <tbody>
+          <% if(data.length) { %>
+          <% for (var i = 0; i < data.length; i++) { %>
+        <tr class="tableRow">
+            <th scope="row"><%= data[i].id %> </th>
+            <td><%= data[i].completion_time.toDateString() %></td>
+            <td><%= data[i].country %></td>
+            <td><%= data[i].company %></td>
+            <td><%= data[i].name %></td>
+            <td><%= data[i].incident_management_response %></td>
+            <td><%= data[i].incident_management_restore %></td>
+            <td><%= data[i].network_availability_management %></td>
+            <td><%= data[i].change_request_management %></td>
+            <td><%= data[i].regular_report_timeliness_and_quality %></td>
+            <td><%= data[i].service_desk %></td>
+            <td><%= data[i].field_service_dedicated_eng %></td>
+            <td><%= data[i].remote_sup_tech_eng %></td>
+            <td><%= data[i].aps %></td>
+            <td><%= data[i].service_desk_2 %></td>
+            <td><%= data[i].field_service_dedicated_eng_2 %></td>
+            <td><%= data[i].remote_sup_tech_eng_2 %></td>
+            <td><%= data[i].aps_2 %></td>
+            <td><%= data[i].through_lead_tech_sol_rev %></td>
+            <td><%= data[i].lvl_responsiveness %></td>
+            <td><%= data[i].sense_urgency %></td>
+            <td><%= data[i].ability_done %></td>
+            <td><%= data[i].effective_ppl %></td>
+            <td><%= data[i].understanding_tech_sol %></td>
+            <td><%= data[i].knowledge_business %></td>
+            <td><%= data[i].overall_perf %></td>
+            <td><%= data[i].ovrll_sns_av_team %></td>
+            <td><%= data[i].ovrll_sns_av_solution %></td>
+            <td><%= data[i].ovrll_sns_acc_exe %></td>
+            <td><%= data[i].ovrll_sns_qd_pt %></td>
+            <td><%= data[i].ovrll_sns_av_service_desk %></td>
+            <td><%= data[i].ovrll_sns_av_field_ded_eng %></td>
+            <td><%= data[i].ovrll_sns_rem_supp_tech_eng %></td>
+            <td><%= data[i].ovrll_sns_av_prof_serv_team %></td>
+            <td><%= data[i].recc_support %></td> 
+        </tr>
+          <% }       
+        }
+        else
+        { %>
+           <h2 class="errorText">No Details</h2>
+         <% } %>
+      </tbody>
+    </table>
+    
+    <h2 style="text-align:center">Comments</h2>
+    <table style="position:relative; border-collapse: collapse;" class="table table-bordered border-primary">
+      <thead style="position: sticky; top: 0; box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.603); background-color: beige;">
+          <th scope="col">Country</th>
+          <th scope="col">Company</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Please comment about any of the attributes listed above?</th>
+          <th scope="col">What is the CSM doing well and what could the CSM do to improve?</th>
+          <th scope="col">Do you have any comments?</th>
+          <th scope="col">Do you have any other comments or suggestions regarding Avaya's Service Delivery Team?</th>
+          <th scope="col">Do you have any other comments or suggestions for Avaya team?</th>
+      </thead>
+      <tbody>
+          <% if(data.length) { %>
+          <% for (var i = 0; i < data.length; i++) { %>
+        <tr class="tableRow">
+            <td><%= data[i].country %></td>
+            <td><%= data[i].company %></td>
+            <td><%= data[i].name %></td>
+            <td><%= data[i].comment_1 %></td>
+            <td><%= data[i].comment_2 %></td>
+            <td><%= data[i].comment_3 %></td>
+            <td><%= data[i].comment_4 %></td>
+            <td><%= data[i].comment_5 %></td> 
+        </tr>
+          <% }       
+        }
+        else
+        { %>
+           <h2 class="errorText">No Details</h2>
+         <% } %>
+      </tbody>
+    </table>
+         
+</body>
+
+</html>
